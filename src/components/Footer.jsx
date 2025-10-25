@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import {
   FaFacebookF,
   FaTwitter,
@@ -12,14 +13,10 @@ const Footer = () => {
       <div className="flex flex-col md:flex-row md:justify-between gap-8">
         {/* Left Section */}
         <div className="md:w-1/2">
-          <img
-            src="/src/assets/favicon-32x32.png"
-            alt="Logo"
-            className="mb-4 w-16"
-          />
+          <img src="/src/assets/logo1.png" alt="Logo" height='50' width={'50'} />
           <p className="text-md  font-semibold italic">
-            At Aidetic, we’ve been at the forefront of AI solutions since
-            2018—pioneering <br/> advancements five years ahead in terms of team
+            At DataXSphere, we’ve been at the forefront of AI solutions since
+            2018—pioneering <br /> advancements five years ahead in terms of team
             expertise and solution excellence.
           </p>
           <a href="#" className="text-blue-500 text-sm mt-4 inline-block">
@@ -54,13 +51,15 @@ const Footer = () => {
             </ul>
           </div>
 
-          {/* Aidetic */}
+          {/* DataXSphere */}
           <div>
-            <h4 className="font-bold text-2xl mb-2">Aidetic</h4>
+            <h4 className="font-bold text-2xl mb-2">DataXSphere</h4>
             <ul className="space-y-1 text-sm text-gray-300">
               <li>Our Journey</li>
               <li>Hiring</li>
-              <li>Contact Us</li>
+              <li>
+                <Link to="/contact">Contact Us</Link>
+              </li>
             </ul>
           </div>
         </div>
@@ -69,7 +68,7 @@ const Footer = () => {
       {/* Bottom Bar */}
       <div className="mt-10 flex flex-col md:flex-row justify-between items-center border-t border-gray-600 pt-6">
         <p className="text-xs text-gray-400">
-          © 2025 aidetic. All rights reserved.
+          © 2025 dataxsphere. All rights reserved.
         </p>
         <div className="flex space-x-4 mt-4 md:mt-0">
           <a href="#" className="text-white hover:text-blue-400">
@@ -86,6 +85,8 @@ const Footer = () => {
           </a>
         </div>
       </div>
+
+      {null}
     </footer>
   );
 };

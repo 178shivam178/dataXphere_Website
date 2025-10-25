@@ -6,7 +6,7 @@ const HeroSection = () => {
     <div className="min-h-screen flex  text-white font-sans bg-[url(/src/assets/bkg.png)] bg-repeat-x ">
       <div className="w-full lg:w-1/2 flex flex-col justify-center px-6 lg:px-24 py-12">
         <span className="text-md text-2xl px-12  py-6 bg-white text-black w-max rounded-full">
-          Delivering AI Success Since 2018
+          Fusing Human Genius with Artificial Intelligence
         </span>
         <h1 className="text-4xl lg:text-6xl font-bold leading-tight my-4">
           We Build AI that Grows <br /> Your Business

@@ -7,19 +7,32 @@ import SuccessStories from "./components/Success";
 import SolutionsSection from "./components/SolutionsSection";
 import Footer from "./components/Footer";
 import HiringSection from "./components/HiringSection";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import ContactUs from "./pages/ContactUs";
 
-function App() {
+function Home() {
   return (
     <>
-      <Navbar />
       <HeroSection />
       <StatsSection />
       <SuccessStories />
       <BlogSection />
       <SolutionsSection />
       <HiringSection />
-      <Footer />
     </>
+  );
+}
+
+function App() {
+  return (
+    <Router>
+      <Navbar />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/contact" element={<ContactUs />} />
+      </Routes>
+      <Footer />
+    </Router>
   );
 }
 

@@ -1,0 +1,7 @@
+/* Make footer logo circular */
+footer img[alt="Logo"] {
+  width: 4rem;   /* match Tailwind w-16 */
+  height: 4rem;  /* ensure square */
+  border-radius: 9999px; /* fully rounded */
+  object-fit: cover; /* crop if not square */
+}
