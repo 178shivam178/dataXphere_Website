@@ -115,7 +115,7 @@ export default function ContactUs() {
         style={{ textAlign: "center", margin: "0 0 16px 0", zIndex: 2 }}
       >
         <div className="text-box layout-element__component layout-element__component--GridTextBox">
-          <h1 style={{ fontSize: 48, lineHeight: 1.3 }}>
+          <h1 style={{ fontSize: "clamp(1.75rem, 1.6vw + 1.2rem, 3rem)", lineHeight: 1.25, margin: 0 }}>
             <span style={{ fontWeight: 600 }}>Get in Touch with Us</span>
           </h1>
         </div>
@@ -130,7 +130,7 @@ export default function ContactUs() {
           aria-live="polite"
           style={{ fontWeight: 700, fontSize: 28, margin: "0 0 16px 0", textAlign: "center" }}
         >
-          Thankyou for your response.We will be in touch with you.
+          Thank you for your response. We will be in touch with you.
         </div>
       ) : null}
 
@@ -163,19 +163,17 @@ export default function ContactUs() {
         >
           <div
             id="zlX1UP"
-            className="form layout-element__component layout-element__component--GridForm form-card"
+            className="form layout-element__component layout-element__component--GridForm form-card form-slab"
             style={{
               backgroundColor: "#A3E4D7",
               borderWidth: 0,
               borderRadius: 20,
-              padding: 40,
+              padding: 28,
               width: "100%",
               height: "100%",
               display: "flex",
               flexDirection: "column",
               border: "1px solid #e5e7eb",
-              borderTopRightRadius: 0,
-              borderBottomRightRadius: 0,
             }}
             ref={formSectionRef}
           >
@@ -185,6 +183,7 @@ export default function ContactUs() {
               onSubmit={handleSubmit}
               noValidate
               id="contact-form"
+              aria-busy={isSubmitting}
               style={{ display: "flex", flexDirection: "column", gap: 18, flex: 1 }}
             >
               <div style={{ display: "grid", gap: 18, flex: 1 }}>
@@ -281,7 +280,7 @@ export default function ContactUs() {
         {/* Right: Image block */}
         <div
           className="layout-element layout-element--layout layout-element transition transition--slide image-col"
-          style={{ display: "block", height: "100%", borderLeft: "1px solid #e5e7eb" }}
+          style={{ display: "block", height: "100%" }}
         >
           <img
             src={guy}
@@ -291,10 +290,6 @@ export default function ContactUs() {
             style={{
               width: "100%",
               height: "100%",
-              borderTopLeftRadius: 0,
-              borderBottomLeftRadius: 0,
-              borderTopRightRadius: 20,
-              borderBottomRightRadius: 20,
               objectFit: "cover",
               display: "block",
             }}
@@ -306,11 +301,20 @@ export default function ContactUs() {
       <style>{`
         .two-col { grid-template-columns: 1fr; gap: 0; }
         .image-col { display: none; }
+        .form-card { box-shadow: 0 4px 14px rgba(0,0,0,0.08); }
+        .form-slab { border-radius: 20px; }
+        @media (min-width: 640px) {
+          .form-card { padding: 32px; }
+        }
         @media (min-width: 900px) {
           .two-col { grid-template-columns: 3fr 2fr; }
-          .image-col { display: block; }
+          .image-col { display: block; border-left: 1px solid #e5e7eb; }
+          .form-slab { border-top-right-radius: 0; border-bottom-right-radius: 0; }
+          .image-col img { border-top-right-radius: 20px; border-bottom-right-radius: 20px; border-top-left-radius: 0; border-bottom-left-radius: 0; }
         }
-        .form-card { box-shadow: 0 4px 14px rgba(0,0,0,0.08); }
+        @media (max-width: 899px) {
+          .image-col img { border-radius: 20px; }
+        }
         .form__control label { font-weight: 600; color: #0d141a; }
         .form__control input, .form__control textarea {
           transition: box-shadow 0.2s ease, border-color 0.2s ease, background-color 0.2s ease;

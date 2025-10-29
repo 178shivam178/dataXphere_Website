@@ -15,10 +15,15 @@ function Home() {
     <>
       <HeroSection />
       <StatsSection />
-      <SuccessStories />
-      <BlogSection />
-      <SolutionsSection />
-      <HiringSection />
+      <section id="solution">
+        <SolutionsSection />
+      </section>
+      <section id="success">
+        <SuccessStories />
+      </section>
+      <section id="insight">
+        <BlogSection />
+      </section>
     </>
   );
 }
