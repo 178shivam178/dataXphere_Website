@@ -8,6 +8,7 @@ import SolutionsSection from "./components/SolutionsSection";
 import Footer from "./components/Footer";
 import HiringSection from "./components/HiringSection";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import ScrollToTop from "./components/ScrollToTop";
 import ContactUs from "./pages/ContactUs";
 
 function Home() {
@@ -31,6 +32,7 @@ function Home() {
 function App() {
   return (
     <Router>
+      <ScrollToTop />
       <Navbar />
       <Routes>
         <Route path="/" element={<Home />} />

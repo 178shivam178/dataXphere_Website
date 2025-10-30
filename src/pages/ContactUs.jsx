@@ -62,7 +62,7 @@ export default function ContactUs() {
     const id = setTimeout(() => {
       try {
         formSectionRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
-      } catch {}
+      } catch { }
       try {
         nameInputRef.current?.focus({ preventScroll: true });
       } catch {
@@ -78,7 +78,7 @@ export default function ContactUs() {
     const id = setTimeout(() => {
       try {
         successRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
-      } catch {}
+      } catch { }
       try {
         successRef.current?.focus?.({ preventScroll: true });
       } catch {
@@ -94,7 +94,7 @@ export default function ContactUs() {
     const id = setTimeout(() => {
       try {
         errorRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
-      } catch {}
+      } catch { }
       try {
         errorRef.current?.focus?.({ preventScroll: true });
       } catch {
@@ -174,6 +174,7 @@ export default function ContactUs() {
               display: "flex",
               flexDirection: "column",
               border: "1px solid #e5e7eb",
+              scrollMarginTop: 135,
             }}
             ref={formSectionRef}
           >
