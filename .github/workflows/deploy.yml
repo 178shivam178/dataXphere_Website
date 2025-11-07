@@ -9,51 +9,33 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repo
+      - name: Checkout
         uses: actions/checkout@v4
 
-      # OPTIONAL build step: if your site has a Node build (e.g., Vite/Next create static output).
-      # If your repo is plain HTML/CSS/JS, this step will just be skipped because package.json doesn't exist.
-      - name: Detect and build (if package.json present)
-        id: build
-        run: |
-          if [ -f "package.json" ]; then
-            echo "Building site..."
-            corepack enable || true
-            if command -v pnpm >/dev/null 2>&1; then
-              pnpm install
-              pnpm build
-            elif command -v yarn >/dev/null 2>&1; then
-              yarn install --frozen-lockfile
-              yarn build
-            else
-              npm ci
-              npm run build
-            fi
+      - name: Use Node 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
 
-            # Try common output dirs
-            if [ -d "dist" ]; then
-              echo "outdir=dist" >> "$GITHUB_OUTPUT"
-            elif [ -d "build" ]; then
-              echo "outdir=build" >> "$GITHUB_OUTPUT"
-            else
-              echo "No known build output directory found; defaulting to repository root."
-              echo "outdir=." >> "$GITHUB_OUTPUT"
-            fi
-          else
-            echo "No package.json found; deploying repository root."
-            echo "outdir=." >> "$GITHUB_OUTPUT"
-          fi
+      # Build with npm. Adjust if your build command differs.
+      - name: Install deps
+        run: npm ci
 
+      - name: Build
+        run: npm run build
+
+      # Pick the folder that contains the built static files.
+      # Common are: 'dist' (Vite) or 'build' (CRA). Change if needed.
       - name: Prepare artifacts
         run: |
+          OUTDIR="dist"
+          if [ -d "build" ]; then OUTDIR="build"; fi
+          echo "Using output dir: $OUTDIR"
           mkdir -p deploy_bundle
-          rsync -a --delete \
-            --exclude ".git" \
-            --exclude ".github" \
-            ./"${{ steps.build.outputs.outdir }}"/ \
-            ./deploy_bundle/
+          rsync -a --delete "$OUTDIR"/ ./deploy_bundle/
 
+      # Upload to /tmp/app_upload on the server
       - name: Copy files to server (/tmp/app_upload)
         uses: appleboy/scp-action@v0.1.7
         with:
@@ -63,17 +45,18 @@ jobs:
           port: ${{ secrets.SSH_PORT || 22 }}
           source: "deploy_bundle/*"
           target: "/tmp/app_upload"
-          strip_components: 1 # place files directly into /tmp/app_upload
+          strip_components: 1
 
-      - name: Run remote deploy script
+      # Run the remote deploy script WITH BASH
+      - name: Run remote deploy script (bash)
         uses: appleboy/ssh-action@v1.2.0
         with:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: ${{ secrets.SSH_PORT || 22 }}
+          # Use bash -lc so we don't hit /bin/sh (dash) and so profile/env are loaded
           script: |
             sudo mkdir -p /tmp/app_upload
             sudo chown -R $USER:$USER /tmp/app_upload
-            # (files are already copied by previous step)
-            sudo /usr/local/bin/deploy_dataxphere.sh
+            sudo bash -lc '/usr/local/bin/deploy_dataxphere.sh'
