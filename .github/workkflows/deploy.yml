@@ -1,31 +1,79 @@
-name: Frontend CI/CD
+name: Deploy to Prod (Ubuntu + Nginx)
 
 on:
   push:
-    branches:
-      - dev   # runs when you push to main
-  pull_request:
-    branches:
-      - dev
+    branches: [ "main" ]
 
 jobs:
-  build:
+  deploy:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout Code
-        uses: actions/checkout@v3
+      - name: Checkout repo
+        uses: actions/checkout@v4
 
-      - name: Setup Node
-        uses: actions/setup-node@v3
+      # OPTIONAL build step: if your site has a Node build (e.g., Vite/Next create static output).
+      # If your repo is plain HTML/CSS/JS, this step will just be skipped because package.json doesn't exist.
+      - name: Detect and build (if package.json present)
+        id: build
+        run: |
+          if [ -f "package.json" ]; then
+            echo "Building site..."
+            corepack enable || true
+            if command -v pnpm >/dev/null 2>&1; then
+              pnpm install
+              pnpm build
+            elif command -v yarn >/dev/null 2>&1; then
+              yarn install --frozen-lockfile
+              yarn build
+            else
+              npm ci
+              npm run build
+            fi
+
+            # Try common output dirs
+            if [ -d "dist" ]; then
+              echo "outdir=dist" >> "$GITHUB_OUTPUT"
+            elif [ -d "build" ]; then
+              echo "outdir=build" >> "$GITHUB_OUTPUT"
+            else
+              echo "No known build output directory found; defaulting to repository root."
+              echo "outdir=." >> "$GITHUB_OUTPUT"
+            fi
+          else
+            echo "No package.json found; deploying repository root."
+            echo "outdir=." >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Prepare artifacts
+        run: |
+          mkdir -p deploy_bundle
+          rsync -a --delete \
+            --exclude ".git" \
+            --exclude ".github" \
+            ./"${{ steps.build.outputs.outdir }}"/ \
+            ./deploy_bundle/
+
+      - name: Copy files to server (/tmp/app_upload)
+        uses: appleboy/scp-action@v0.1.7
         with:
-          node-version: 18  # change if your project uses another version
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          port: ${{ secrets.SSH_PORT || 22 }}
+          source: "deploy_bundle/*"
+          target: "/tmp/app_upload"
+          strip_components: 1 # place files directly into /tmp/app_upload
 
-      - name: Install Dependencies
-        run: npm install
-
-      - name: Run Build
-        run: npm run build
-
-      - name: Run Tests
-        run: npm test
+      - name: Run remote deploy script
+        uses: appleboy/ssh-action@v1.2.0
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          port: ${{ secrets.SSH_PORT || 22 }}
+          script: |
+            sudo mkdir -p /tmp/app_upload
+            sudo chown -R $USER:$USER /tmp/app_upload
+            # (files are already copied by previous step)
+            sudo /usr/local/bin/deploy_dataxphere.sh
