@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import storyImg1 from "../assets/story1.png";
 import storyImg2 from "../assets/story2.png";
 import storyImg3 from "../assets/story3.png";
@@ -118,12 +119,12 @@ const SuccessStories = () => {
                   >
                     {isExpanded ? "Hide Details" : "Read Full Story"}
                   </button>
-                  <a
-                    href="/contact"
+                  <Link
+                    to="/contact"
                     className="px-4 py-2 bg-cyan-500 text-white text-sm font-medium rounded hover:bg-cyan-600 transition"
                   >
                     Let’s Talk
-                  </a>
+                  </Link>
                 </div>
               </div>
             </div>

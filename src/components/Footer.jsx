@@ -15,8 +15,8 @@ export default function Footer() {
           <div className="space-y-2">
             <h3 className="text-white font-semibold">Company</h3>
             <nav className="flex flex-col gap-1 text-sm">
-              <a href="#about" className="hover:text-white">About</a>
-              <a href="#careers" className="hover:text-white">Careers</a>
+              <Link to="/about" className="hover:text-white">About</Link>
+              <Link to="/careers" className="hover:text-white">Careers</Link>
               <a href="#blog" className="hover:text-white">Blog</a>
             </nav>
           </div>
@@ -24,8 +24,6 @@ export default function Footer() {
           <div className="space-y-2">
             <h3 className="text-white font-semibold">Resources</h3>
             <nav className="flex flex-col gap-1 text-sm">
-              <a href="#" className="hover:text-white">AI Success Stories</a>
-              <a href="#" className="hover:text-white">Databricks Partnership</a>
               <Link to="/contact" className="hover:text-white">Contact</Link>
             </nav>
           </div>
@@ -33,7 +31,7 @@ export default function Footer() {
           <div className="space-y-2">
             <h3 className="text-white font-semibold">Get in touch</h3>
             <p className="text-sm text-gray-400">hello@DataXphere.com</p>
-            <p className="text-sm text-gray-400">San Francisco, CA</p>
+            <p className="text-sm text-gray-400">New Delhi, India</p>
           </div>
         </div>
 
@@ -49,4 +47,3 @@ export default function Footer() {
     </footer>
   );
 }
-

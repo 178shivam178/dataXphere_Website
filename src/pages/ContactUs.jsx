@@ -105,17 +105,25 @@ export default function ContactUs() {
   }, [error]);
 
   return (
-    <div
-      className="block-layout block-layout--layout"
-      style={{ maxWidth: 1224, margin: "0 auto", padding: "24px 16px 52px" }}
-    >
+    <main className="min-h-screen bg-gradient-to-b from-[#050814] via-[#080f21] to-[#0b1730] text-white py-12 sm:py-16">
+      <div
+        className="block-layout block-layout--layout"
+        style={{ maxWidth: 1224, margin: "0 auto", padding: "24px 16px 52px" }}
+      >
       {/* Title block */}
       <div
         className="layout-element layout-element--layout layout-element transition transition--slide"
         style={{ textAlign: "center", margin: "0 0 16px 0", zIndex: 2 }}
       >
         <div className="text-box layout-element__component layout-element__component--GridTextBox">
-          <h1 style={{ fontSize: "clamp(1.75rem, 1.6vw + 1.2rem, 3rem)", lineHeight: 1.25, margin: 0 }}>
+          <h1
+            style={{
+              fontSize: "clamp(1.75rem, 1.6vw + 1.2rem, 3rem)",
+              lineHeight: 1.25,
+              margin: 0,
+              color: "#f8fafc",
+            }}
+          >
             <span style={{ fontWeight: 600 }}>Get in Touch with Us</span>
           </h1>
         </div>
@@ -334,6 +342,7 @@ export default function ContactUs() {
         .form__control button:active { transform: translateY(1px); }
         .form__control button:disabled { opacity: 0.7; cursor: not-allowed; }
       `}</style>
-    </div>
+      </div>
+    </main>
   );
 }
