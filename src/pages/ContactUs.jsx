@@ -105,10 +105,11 @@ export default function ContactUs() {
   }, [error]);
 
   return (
-    <div
-      className="block-layout block-layout--layout"
-      style={{ maxWidth: 1224, margin: "0 auto", padding: "24px 16px 52px" }}
-    >
+    <main className="min-h-screen bg-gradient-to-b from-[#050814] via-[#080f21] to-[#0b1730] text-white py-12 sm:py-16">
+      <div
+        className="block-layout block-layout--layout"
+        style={{ maxWidth: 1224, margin: "0 auto", padding: "24px 16px 52px" }}
+      >
       {/* Title block */}
       <div
         className="layout-element layout-element--layout layout-element transition transition--slide"
@@ -334,6 +335,7 @@ export default function ContactUs() {
         .form__control button:active { transform: translateY(1px); }
         .form__control button:disabled { opacity: 0.7; cursor: not-allowed; }
       `}</style>
-    </div>
+      </div>
+    </main>
   );
 }
