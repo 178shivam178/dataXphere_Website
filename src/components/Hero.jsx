@@ -1,21 +1,7 @@
 import React from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 export default function HeroSection() {
-  const location = useLocation();
-  const navigate = useNavigate();
-
-  const handleLearnMore = (event) => {
-    event.preventDefault();
-    const successSection = document.querySelector("#success");
-
-    if (successSection && location.pathname === "/") {
-      successSection.scrollIntoView({ behavior: "smooth", block: "start" });
-    } else {
-      navigate("/#success");
-    }
-  };
-
   return (
     <section className="bg-black text-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-10 py-12 sm:py-16 lg:py-24">
@@ -35,8 +21,7 @@ export default function HeroSection() {
                 Get Started
               </Link>
               <a
-                href="/#success"
-                onClick={handleLearnMore}
+                href="#learn"
                 className="inline-flex items-center justify-center px-5 py-3 rounded-md border border-white/20 hover:border-white/40 text-white"
               >
                 Learn More
@@ -68,3 +53,4 @@ export default function HeroSection() {
     </section>
   );
 }
+

@@ -19,7 +19,6 @@ function Home() {
     <>
       <HeroSection />
       <StatsSection />
-
       <section id="solution">
         <SolutionsSection />
       </section>

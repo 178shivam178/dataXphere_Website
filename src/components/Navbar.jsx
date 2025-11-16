@@ -50,7 +50,7 @@ export default function Navbar() {
                 aria-expanded={companyOpen}
                 onClick={() => setCompanyOpen(v => !v)}
               >
-                Company
+                COMPANY
                 <span aria-hidden>▼</span>
               </button>
               {/* Dropdown */}
@@ -59,22 +59,8 @@ export default function Navbar() {
                 role="menu"
                 onMouseLeave={() => setCompanyOpen(false)}
               >
-                <Link
-                  to="/about"
-                  className="block px-3 py-2 text-sm hover:bg-white/10"
-                  role="menuitem"
-                  onClick={() => setCompanyOpen(false)}
-                >
-                  About Us
-                </Link>
-                <Link
-                  to="/careers"
-                  className="block px-3 py-2 text-sm hover:bg-white/10"
-                  role="menuitem"
-                  onClick={() => setCompanyOpen(false)}
-                >
-                  Careers
-                </Link>
+                <a href="/#about" className="block px-3 py-2 text-sm hover:bg-white/10" role="menuitem">About Us</a>
+                <a href="/#careers" className="block px-3 py-2 text-sm hover:bg-white/10" role="menuitem">Careers</a>
                 <Link to="/contact" className="block px-3 py-2 text-sm hover:bg-white/10" role="menuitem" onClick={() => setCompanyOpen(false)}>Contact</Link>
               </div>
             </div>
@@ -110,20 +96,8 @@ export default function Navbar() {
               <span className="transition-transform group-open:rotate-180">▼</span>
             </summary>
             <div className="pl-3 pt-1 space-y-1">
-              <Link
-                to="/about"
-                className="block py-1 hover:text-white"
-                onClick={() => setMenuOpen(false)}
-              >
-                About Us
-              </Link>
-              <Link
-                to="/careers"
-                className="block py-1 hover:text-white"
-                onClick={() => setMenuOpen(false)}
-              >
-                Careers
-              </Link>
+              <a href="/#about" className="block py-1 hover:text-white">About Us</a>
+              <a href="/#careers" className="block py-1 hover:text-white">Careers</a>
               <Link to="/contact" className="block py-1 hover:text-white" onClick={() => setMenuOpen(false)}>Contact</Link>
             </div>
           </details>

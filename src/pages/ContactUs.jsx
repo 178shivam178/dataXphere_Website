@@ -116,14 +116,7 @@ export default function ContactUs() {
         style={{ textAlign: "center", margin: "0 0 16px 0", zIndex: 2 }}
       >
         <div className="text-box layout-element__component layout-element__component--GridTextBox">
-          <h1
-            style={{
-              fontSize: "clamp(1.75rem, 1.6vw + 1.2rem, 3rem)",
-              lineHeight: 1.25,
-              margin: 0,
-              color: "#f8fafc",
-            }}
-          >
+          <h1 style={{ fontSize: "clamp(1.75rem, 1.6vw + 1.2rem, 3rem)", lineHeight: 1.25, margin: 0 }}>
             <span style={{ fontWeight: 600 }}>Get in Touch with Us</span>
           </h1>
         </div>
